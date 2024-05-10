@@ -1,10 +1,10 @@
-package com.OgenBertrand;
+package com.ogenbertrand;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GameAppBackendApplicationTests {
+class GameAppApplicationTests {
 
 	@Test
 	void contextLoads() {

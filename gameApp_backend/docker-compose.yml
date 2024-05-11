@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:latest
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRESQL_USERNAME: myuser
+      POSTGRESQL_PASSWORD: mypassword
+      POSTGRESQL_DATABASE: mydatabase
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    networks:
+      - my-network
+networks:
+    my-network:
+      driver: bridge

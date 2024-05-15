@@ -1,0 +1,54 @@
+name: Build and test
+
+on:
+  push:
+    branches:
+      - "**"
+    tags-ignore:
+      - "v*"
+    paths:
+      - 'gameApp_backend/**'
+      - '.github/workflows/build-test-backend.yml'
+
+  pull_request:
+    branches:
+      - "**"
+    paths:
+      - 'gameApp_backend/**'
+      - '.github/workflows/build-test-backend.yml'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}-backend
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "recursive"
+
+      - name: Setup java
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      - name: Change directory
+        run: cd gameApp_backend
+
+      - name: Build with Gradle
+        run: |
+          cd gameApp_backend
+          ./gradlew build
+
+      - name: Run Test
+        run: |
+          cd gameApp_backend
+          ./gradlew test
+
+

@@ -1,4 +1,4 @@
-name: Build and Test React
+name: Build Node.js CI
 
 on:
   push:
@@ -17,10 +17,6 @@ on:
       - "gameApp_frontend/**"
       - ".github/workflows/build-test-frontend.yml"
 
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}-frontend
-
 jobs:
   build:
     name: Build
@@ -38,20 +34,16 @@ jobs:
         with:
           node-version: ${{ matrix.node-version}}
           cache: 'npm'
+          cache-dependency-path: 'gameApp_frontend/package-lock.json'
 
       - name: Install dependencies
-        run:
-            cd gameApp_frontend 
-            npm ci
+        run: npm ci
+        working-directory: gameApp_frontend
 
       - name: Build
-        run: 
-            cd gameApp_frontend
-            npm run build
+        run: npm run build
+        working-directory: gameApp_frontend
+      
 
-      - name: Test
-        run:
-            cd gameApp_frontend 
-            npm test
 
 

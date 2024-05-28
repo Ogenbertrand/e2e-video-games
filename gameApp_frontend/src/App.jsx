@@ -30,6 +30,7 @@ function App() {
     <>
       <Header />
       <SearchBar onSearch={handleSearch} />
+      
       <Themecolor />
         <Link to="/login"    
       style={{

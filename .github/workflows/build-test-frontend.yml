@@ -1,0 +1,57 @@
+name: Build and Test React
+
+on:
+  push:
+    branches:
+      - "**"
+    tags-ignore:
+      - "v*"
+    paths:
+      - "gameApp_frontend/**"
+      - ".github/workflows/build-test-frontend.yml"
+
+  pull_request:
+    branches:
+      - "**"
+    paths:
+      - "gameApp_frontend/**"
+      - ".github/workflows/build-test-frontend.yml"
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}-frontend
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version}}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run:
+            cd gameApp_frontend 
+            npm ci
+
+      - name: Build
+        run: 
+            cd gameApp_frontend
+            npm run build
+
+      - name: Test
+        run:
+            cd gameApp_frontend 
+            npm test
+
+

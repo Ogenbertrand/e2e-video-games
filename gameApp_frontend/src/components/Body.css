@@ -44,3 +44,41 @@
   margin-right: 10px;
 }
 
+.right-content h1{
+  font-weight: bolder;
+  font-size: 40px;
+}
+
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+
+.right-content .order{
+  width: 150px;
+  height: 45px;
+  margin-top: 1px;
+  border-radius: 5px;
+  padding-right: 70px;
+  background-color: #f0f0f0ed;
+  border: none;
+}
+
+.right-content .order .icon{
+  cursor: pointer;
+}
+
+.right-content .filter{
+  width: 150px;
+  height: 45px;
+  margin-top: 1px;
+  margin-right: 810px;
+  border-radius: 5px;
+  padding-right: 70px;
+  background-color: #f0f0f0ed;
+  border: none;
+}
+

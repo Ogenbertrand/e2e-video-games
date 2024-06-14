@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import './Body.css';
 
 import GameList from '../assets/images/yo.webp';
@@ -13,7 +15,14 @@ import Sport from '../assets/images/sport.webp';
 function Body({ games, searchQuery, onSearch }) {
   const [selectedGenre, setSelectedGenre] = useState('');
   const [filteredGames, setFilteredGames] = useState([]);
+  const [isGenreVisible, setIsGenreVisible] = useState(false);
 
+  const genres = ['Action', 'Adventure', 'RPG', 'Sports']
+
+  const toggleGenreVisibilty = () => {
+    setIsGenreVisible(!isGenreVisible);
+  }
+ 
   useEffect(() => {
     filterGames();
   }, [games, selectedGenre, searchQuery]);
@@ -30,10 +39,6 @@ function Body({ games, searchQuery, onSearch }) {
       return true;
     });
     setFilteredGames(filtered);
-  };
-
-  const handleGenreClick = (genre) => {
-    setSelectedGenre(genre);
   };
 
   return (
@@ -67,6 +72,7 @@ function Body({ games, searchQuery, onSearch }) {
           </li>
         </ul>
       </section>
+      
       <section className="right-content">
         <h1 className="title">{selectedGenre ? `${selectedGenre} Games` : 'All Games'}</h1>
         <ul>
@@ -74,7 +80,20 @@ function Body({ games, searchQuery, onSearch }) {
             <li key={index}>{game.title}</li>
           ))}
         </ul>
-        <button className='Order by' type='text' aria-placeholder='Order by'></button>
+        <div className="button-container">
+            <button className="order" type="text" onClick={toggleGenreVisibilty}>
+            Order by: <FontAwesomeIcon className='icon' icon={faChevronDown} />
+            </button>
+            <button className="filter" type="text" placeholder="Filter by:">
+              Filter by: <FontAwesomeIcon icon={faChevronDown} /></button>
+        </div>
+        {isGenreVisible && (
+          <ul className='genres-list'>
+            {genres.map((genre, index) => (
+              <li key={index}>{genre}</li>
+            ))}
+          </ul>
+        )}
       </section>
     </div>
   );

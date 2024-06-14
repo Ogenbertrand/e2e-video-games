@@ -4,12 +4,12 @@
     align-items: center;
     position: fixed;
     top: 35px;
-    left: 90px;
+    left: 120px;
   }
   
   .search-container {
     position: relative;
-    width: 800px;
+    width: 1000px;
   }
   
   .search-container input {

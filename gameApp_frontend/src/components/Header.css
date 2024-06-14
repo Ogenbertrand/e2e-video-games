@@ -4,12 +4,15 @@
     left: 0;
     width: 100%;
     height: 50px;
-    z-index: 999;
+    position: fixed;
+    z-index: 1000;
   }
   
   .header .img {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
     margin-left: 7px;
+    transform: scale(2.0);
   }

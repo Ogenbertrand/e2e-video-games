@@ -1,29 +1,35 @@
 package com.gameApp.gameApp_backend.controller;
 
 import com.gameApp.gameApp_backend.domain.Users;
-import com.gameApp.gameApp_backend.repository.UsersRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.gameApp.gameApp_backend.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:5174")
+@RequiredArgsConstructor
 public class UsersController {
-    private final UsersRepository usersRepository;
 
-    public UsersController(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
+    private final UserService userService;
+
+    @GetMapping
+    public ResponseEntity<List<Users>> getAllUsers() {
+        List<Users> users = userService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/users")
-    public List<Users> getAllUsers() {
-        return this.usersRepository.findAll();
-    }
+    @PostMapping
+    public ResponseEntity<Users> createUser(@Validated @RequestBody Users user) {
 
-    @PostMapping("/users")
-    public Users createUser(@RequestBody Users user) {
-        return this.usersRepository.save(user);
+            Users savedUser = userService.saveUser(user);
+            return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+
+
     }
 }

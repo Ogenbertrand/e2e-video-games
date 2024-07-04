@@ -5,7 +5,7 @@ services:
     container_name: postgresCont
     restart: always
     environment:
-      - POSTGRES_DB=user_db
+      - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
     ports:
